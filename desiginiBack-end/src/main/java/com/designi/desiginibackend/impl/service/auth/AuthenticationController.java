@@ -2,10 +2,7 @@ package com.designi.desiginibackend.impl.service.auth;
 
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping ("/auth")
@@ -19,13 +16,12 @@ private final AuthenticationService Authservice;
 
     @GetMapping("/version")
     public ResponseEntity<String> getVersion(){
-
         return ResponseEntity.ok("designi app server version V0.0.1");
     }
 
 
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> registerAsNewUser(
             @RequestBody RegisterRequest request
     ){

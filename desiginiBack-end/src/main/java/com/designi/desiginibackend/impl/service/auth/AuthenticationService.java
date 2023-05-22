@@ -23,7 +23,7 @@ private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user= User.builder().
-                firstName(request.getFirstName()).lastName(request.getLastName()).email(request.getEmail())
+                firstName(request.getFirstName()).lastName(request.getLastName()).email(request.getEmail()).profileImage(request.getImageData())
                         .password( passwordEncoder.encode( request.getPassword())).
         role(Role.USER).  build();
         repository.save(user);
@@ -39,9 +39,10 @@ private final AuthenticationManager authenticationManager;
    );
    var user=repository.findUserByEmail(request.getEmail()).orElseThrow(
            //todo handle the right exception and not make it general for the UX
+
    );
         var jwtToken= jwtService.generateToken(user);
-   return AuthenticationResponse.builder().token(jwtToken).build();
+   return AuthenticationResponse.builder().token(jwtToken).firstName(user.getFirstName()).lastName(user.getLastName()).imageData(user.getProfileImage()).build();
 
 
 
